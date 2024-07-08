@@ -33,6 +33,60 @@ class CyclOPediaCLassPage extends React.Component {
     }
   };
 
+  componentDidUpdate = async (previousProps, previousState) => {
+    //console.log("Component Did Update");
+    localStorage.setItem("cylcopediaState", JSON.stringify(this.state));
+    //console.log("Old State - " + previousState.studentCount);
+    //console.log("New State - " + this.state.studentCount);
+    if (previousState.studentCount < this.state.studentCount) {
+      const response = await getRandomUser();
+      this.setState((prevState) => {
+        return {
+          studentList: [
+            ...prevState.studentList,
+            {
+              name: response.data.first_name + " " + response.data.last_name,
+            },
+          ],
+        };
+      });
+    } else if (previousState.studentCount > this.state.studentCount) {
+      this.setState((prevState) => {
+        return {
+          studentList: [],
+        };
+      });
+    }
+  };
+
+  componentWillUnmount() {
+    // console.log("Component Will UnMount");
+  }
+
+  handleAddStudent = () => {
+    this.setState((prevState) => {
+      return {
+        studentCount: prevState.studentCount + 1,
+      };
+    });
+  };
+
+  handleRemoveAllStudent = () => {
+    this.setState((prevState) => {
+      return {
+        studentCount: 0,
+      };
+    });
+  };
+
+  handletoggleInstructor = () => {
+    this.setState((prevState) => {
+      return {
+        hideInstructor: !prevState.hideInstructor,
+      };
+    });
+  };
+
   render() {
     console.log("Render Component");
     return (
@@ -47,6 +101,46 @@ class CyclOPediaCLassPage extends React.Component {
             Phone:{this.state.instructor.phone} <br />
           </div>
         )}
+
+        <div className="p-3">
+          <span className="h4 text-success">Feedback</span>
+          <br />
+          <input
+            type="text"
+            value={this.state.inputName}
+            placeholder="Name.."
+            onChange={(e) => {
+              this.setState({ inputName: e.target.value });
+            }}
+          ></input>{" "}
+          Value : {this.state.inputName}
+          <br />
+          <textarea
+            value={this.state.inputFeedback}
+            onChange={(e) => {
+              this.setState({ inputFeedback: e.target.value });
+            }}
+            placeholder="Feedback..."
+          ></textarea>
+          Value : {this.state.inputFeedback}
+        </div>
+        <div className="p-3">
+          <span className="h4 text-success">Students</span> <br />
+          <div>Student Count : {this.state.studentCount}</div>
+          <button
+            className="btn btn-success btn-sm"
+            onClick={this.handleAddStudent}
+          >
+            Add Student
+          </button>{" "}
+          &nbsp;
+          <button
+            className="btn btn-danger btn-sm"
+            onClick={this.handleRemoveAllStudent}
+          >
+            Remove All Students
+          </button>
+        </div>
       </div>
     );
   }
