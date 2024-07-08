@@ -1,5 +1,6 @@
 import React from "react";
 import getRandomUser from "../../Utility/api";
+import Instructor from "./Instructor";
 
 class CyclOPediaCLassPage extends React.Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class CyclOPediaCLassPage extends React.Component {
   };
 
   componentDidUpdate = async (previousProps, previousState) => {
-    //console.log("Component Did Update");
+    console.log("Component Did Update");
     localStorage.setItem("cylcopediaState", JSON.stringify(this.state));
     //console.log("Old State - " + previousState.studentCount);
     //console.log("New State - " + this.state.studentCount);
@@ -91,7 +92,18 @@ class CyclOPediaCLassPage extends React.Component {
     console.log("Render Component");
     return (
       <div>
-        {this.state.instructor && <Instructor />}
+        <div className="p-3">
+          <span className="h4 text-success">Instructor &nbsp;</span>
+          <i
+            className={` bi ${
+              this.state.hideInstructor ? "bi-toggle-off" : "bi-toggle-on"
+            } btn btn-success btn-sm`}
+            onClick={this.handletoggleInstructor}
+          ></i>
+          {!this.state.hideInstructor && this.state.instructor ? (
+            <Instructor instructor={this.state.instructor} />
+          ) : null}
+        </div>
 
         <div className="p-3">
           <span className="h4 text-success">Feedback</span>
@@ -131,6 +143,13 @@ class CyclOPediaCLassPage extends React.Component {
           >
             Remove All Students
           </button>
+          {this.state.studentList.map((student, index) => {
+            return (
+              <div className="text-white" key={index}>
+                - {student.name}
+              </div>
+            );
+          })}
         </div>
       </div>
     );
