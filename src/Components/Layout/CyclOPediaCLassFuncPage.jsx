@@ -20,6 +20,29 @@ const CyclOPediaCLassFuncPage = () => {
     return "";
   });
 
+  useEffect(() => {
+    console.log("This will be called on Every Render");
+  });
+
+  useEffect(() => {
+    console.log("This will be called on Initial/first Render/Mount");
+  }, []);
+
+  useEffect(() => {
+    console.log(
+      "This will be called on whenever value of hideInstructor inputName changes"
+    );
+  }, [inputFeedback, inputName]);
+
+  useEffect(() => {
+    console.log(
+      "This will be called on whenever value of hideInstructor changes"
+    );
+    return () => {
+      console.log("This will be called on when component will be UNMOUNTED");
+    };
+  }, []);
+
   // constructor(props) {
   //   super(props);
   //   this.state = JSON.parse(localStorage.getItem("cylcopediaState")) || {

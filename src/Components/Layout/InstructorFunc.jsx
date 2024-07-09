@@ -1,32 +1,23 @@
 import React from "react";
+import { useEffect } from "react";
 
-class InstructorFunc extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const InstructorFunc = (props) => {
+  useEffect(() => {
+    return () => {
+      console.log("Instructor - UNMOUNTED");
+    };
+  }, []);
 
-  componentDidUpdate() {
-    console.log("Update - Instructor");
-  }
-  componentDidMount() {
-    console.log("Mounted - Instructor");
-  }
-  componentWillUnmount() {
-    console.log("UnMount - Instructor");
-  }
-
-  render() {
-    console.log("Render - Instructor");
-    return (
-      <div>
-        Name: {this.props.instructor.name} <br />
-        Email : {this.props.instructor.email}
-        <br />
-        Phone : {this.props.instructor.phone}
-        <br />
-      </div>
-    );
-  }
-}
+  console.log("Render - Instructor");
+  return (
+    <div className="">
+      Name: {props.instructor.name} <br />
+      Email : {props.instructor.email}
+      <br />
+      Phone : {props.instructor.phone}
+      <br />
+    </div>
+  );
+};
 
 export default InstructorFunc;
