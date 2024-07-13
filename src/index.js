@@ -1,8 +1,8 @@
 import ReactDOM from "react-dom/client";
-import Header from "./Components/Layout/Header";
-import Footer from "./Components/Layout/Footer";
-import CyclOPediaCLassPage from "./Components/Layout/CyclOPediaCLassPage";
-import CyclOPediaCLassFuncPage from "./Components/Layout/CyclOPediaCLassFuncPage";
+import Header from "./Header";
+import Footer from "./Footer";
+import CyclOPediaCLassPage from "./CyclOPediaCLassPage";
+import CyclOPediaCLassFuncPage from "./CyclOPediaCLassFuncPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
